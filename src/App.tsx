@@ -1,15 +1,24 @@
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
-import { initRedirect } from './services/authorization'
+import { initRedirect, getToken } from './services/authorization'
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false)
+  const urlParams = new URLSearchParams(window.location.search);
+  let code = urlParams.get('code');
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    let code = urlParams.get('code');
-    console.log(code)
-  }, [])
+    if (!isAuth) {
+      if (code) {
+        getToken(code).then(() => setIsAuth(true))
+      }
+    }
+  }, [isAuth])
+
+
+
+  
   
   return (
     <button onClick={initRedirect}>Authorize</button>
