@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { initRedirect, getToken } from './services/authorization'
-
+import ErrorPage from "./error-page";
 function App() {
   const [isAuth, setIsAuth] = useState(false)
   const urlParams = new URLSearchParams(window.location.search);
