@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { initRedirect, getToken } from "./services/authorization";
+import styled from "styled-components";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -15,7 +16,13 @@ function App() {
     }
   }, [isAuth]);
 
-  return <button onClick={initRedirect}>Authorize</button>;
+  return <AuthButton onClick={initRedirect}>Authorize</AuthButton>;
 }
+
+const AuthButton = styled.button`
+  background-color: ${({ theme }) => theme.green};
+  height: 3rem;
+  border-radius: 1.5rem;
+`;
 
 export default App;
