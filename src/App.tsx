@@ -1,28 +1,28 @@
+import { useEffect, useState } from "react";
+import "./App.css";
+import { initRedirect, getToken } from "./services/authorization";
+import styled from "styled-components";
 
-import { useEffect, useState } from 'react'
-import './App.css'
-import { initRedirect, getToken } from './services/authorization'
-import ErrorPage from "./error-page";
 function App() {
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
-  let code = urlParams.get('code');
+  let code = urlParams.get("code");
 
   useEffect(() => {
     if (!isAuth) {
       if (code) {
-        getToken(code).then(() => setIsAuth(true))
+        getToken(code).then(() => setIsAuth(true));
       }
     }
-  }, [isAuth])
+  }, [isAuth]);
 
-
-
-  
-  
-  return (
-    <button onClick={initRedirect}>Authorize</button>
-  )
+  return <AuthButton onClick={initRedirect}>Authorize</AuthButton>;
 }
 
-export default App
+const AuthButton = styled.button`
+  background-color: ${({ theme }) => theme.green};
+  height: 3rem;
+  border-radius: 1.5rem;
+`;
+
+export default App;
