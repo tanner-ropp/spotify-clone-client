@@ -57,7 +57,6 @@ export const initRedirect = async () => {
 export const getToken = async (code: string) => {
   // stored in the previous step
   let codeVerifier = localStorage.getItem("code_verifier");
- 
 
   const payload = {
     method: "POST",
@@ -75,8 +74,12 @@ export const getToken = async (code: string) => {
   };
 
   const body = await fetch("https://accounts.spotify.com/api/token", payload);
-  if (body.ok){
+  if (body.ok) {
     const response = await body.json();
     localStorage.setItem("access_token", response.access_token);
   }
+};
+
+export const getIsAuthenticated = () => {
+  return Boolean(localStorage.getItem("access_token"));
 };
